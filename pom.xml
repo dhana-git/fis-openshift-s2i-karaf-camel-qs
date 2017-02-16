@@ -25,17 +25,11 @@
 		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
 		<build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
 
-<<<<<<< HEAD
 		<docker.pullRegistry>registry.access.redhat.com</docker.pullRegistry>
 		<docker.pushRegistry>192.168.56.101:8443</docker.pushRegistry>
 		<docker.fromImage>jboss-fuse-6/fis-karaf-openshift:1.0</docker.fromImage>
 		<openshift.project.name>fis-openshift-fabric8-maven</openshift.project.name>
 		<docker.toImage>${openshift.project.name}/fis-openshift-fabric8-maven-karaf-camel-qs:${project.version}</docker.toImage>
-=======
-		<docker.from>jboss-fuse-6/fis-karaf-openshift:1.0</docker.from>
-		<openshift.project.name>fis-openshift-fabric8-maven</openshift.project.name>
-		<docker.image>${openshift.project.name}/fis-openshift-fabric8-maven-karaf-camel-qs:${project.version}</docker.image>
->>>>>>> 556dc522f79a3fd9e2ccf3754a9096c61a4795d2
 		<docker.assemblyDescriptor>${basedir}/src/main/fabric8/assembly.xml</docker.assemblyDescriptor>
 		<docker.port.container.jolokia>8778</docker.port.container.jolokia>
 		<docker.port.container.http>8181</docker.port.container.http>
@@ -225,13 +219,7 @@
 					<pushRegistry>${docker.pushRegistry}</pushRegistry>
 					<images>
 						<image>
-<<<<<<< HEAD
 							<name>${docker.toImage}</name>
-=======
-							<name>${docker.image}</name>
-							<pullRegistry>registry.access.redhat.com</pullRegistry>
-							<!-- <pushRegistry>192.168.56.101:8443</pushRegistry> -->
->>>>>>> 556dc522f79a3fd9e2ccf3754a9096c61a4795d2
 							<build>
 								<from>${docker.fromImage}</from>
 								<assembly>
