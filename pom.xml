@@ -18,7 +18,7 @@
 		<fuse.version>6.2.1.redhat-169</fuse.version>
 		<fabric8.version>2.2.0.redhat-085</fabric8.version>
 		<fabric8-maven-plugin.version>${fabric8.version}</fabric8-maven-plugin.version>
-		<docker-maven-plugin.version>0.19.0.fuse-000003</docker-maven-plugin.version>
+		<docker-maven-plugin.version>0.19.1</docker-maven-plugin.version>
 		<karaf-maven-plugin.version>4.0.2.redhat-621085</karaf-maven-plugin.version>
 		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
 		<maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
@@ -26,7 +26,6 @@
 		<build-helper-maven-plugin.version>1.9.1</build-helper-maven-plugin.version>
 
 		<docker.pullRegistry>registry.access.redhat.com</docker.pullRegistry>
-		<docker.pushRegistry>192.168.56.101:8443</docker.pushRegistry>
 		<docker.fromImage>jboss-fuse-6/fis-karaf-openshift:1.0</docker.fromImage>
 		<openshift.project.name>fis-openshift-fabric8-maven</openshift.project.name>
 		<docker.toImage>${openshift.project.name}/fis-openshift-fabric8-maven-karaf-camel-qs:${project.version}</docker.toImage>
@@ -214,9 +213,9 @@
 				<artifactId>docker-maven-plugin</artifactId>
 				<version>${docker-maven-plugin.version}</version>
 				<configuration>
-					<!-- <registry>${docker.pullRegistry}</registry> -->
-					<pullRegistry>${docker.pullRegistry}</pullRegistry>
-					<pushRegistry>${docker.pushRegistry}</pushRegistry>
+					<registry>${docker.pullRegistry}</registry>
+					<!--<pullRegistry>${docker.pullRegistry}</pullRegistry> -->
+					<!--<pushRegistry>${docker.pushRegistry}</pushRegistry> -->
 					<images>
 						<image>
 							<name>${docker.toImage}</name>
