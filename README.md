@@ -17,10 +17,35 @@ It is assumed that OpenShift platform is already running. If not you can find de
 
 Login into OpenShift:
 
-    oc login -u <username> -p <password/token> -n <OPENSHIFT_NAMESPACE>  <https://CLUSTER_API_HOST:8443>
+    oc login -u <username> -p <password/token> -n <openshift namespace>  <https://CLUSTER_SERVER_API_HOST:8443>
+
+
+    oc login -u configadmin -p password -n fis-openshift-fabric8-maven  https://192.168.56.101:8443
+
+Hint:- To get OpenShift/Kubernetes cluster server API URL
+    
+    oc get ep -o "jsonpath=https://{$.items[?(@.metadata.name==\"kubernetes\")].subsets[0].addresses[0].ip}:{$.items[?(@.metadata.name==\"kubernetes\")].subsets[0].ports[?(@.name==\"https\")].port}"
+
+Hint:- To get Docker Registry's ClusterIP and Port:
+
+    oc get svc/docker-registry -n default -o 'jsonpath={.spec.clusterIP}:{.spec.ports[0].port}'
+    
 The example can be built and deployed using a single goal:
 
-    mvn -Pf8-deploy -Ddocker.pull.registry=registry.access.redhat.com -Ddocker.push.registry=<DOCKER_REGISTRY_HOST>:5000 -Ddocker.push.username=$(oc whoami) -Ddocker.push.password=$(oc whoami -t)
+    mvn -Pf8-deploy \
+	-Ddocker.pull.registry=<Docker registry host to pull an image> \
+	-Ddocker.push.registry=<Docker registry host to pull an image> \
+	-Ddocker.push.username=<OpenShift username> \
+	-Ddocker.push.password=<OpenShift user passowrod/token> \
+    -Dopenshift.project.name=<OpenShift project/namespace>
+
+
+    mvn -Pf8-deploy \
+	-Ddocker.pull.registry=registry.access.redhat.com \
+	-Ddocker.push.registry=$(oc get svc/docker-registry -n default -o 'jsonpath={.spec.clusterIP}:{.spec.ports[0].port}') \
+	-Ddocker.push.username=$(oc whoami) \
+	-Ddocker.push.password=$(oc whoami -t) \
+	-Dopenshift.project.name=$(oc project -q)
 
 When the example runs in OpenShift, you can use the OpenShift client tool to inspect the status
 
